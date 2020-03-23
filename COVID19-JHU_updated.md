@@ -57,9 +57,12 @@ install.packages("plotly")
 library(plotly)
 
 
+
 % LATAM %
   
   % Confirmed cases %
+```
+```{r, echo=FALSE}
 
 gather(COVID19_LATAM_WK,
                        value = "Confirmed",
@@ -73,15 +76,15 @@ conf_LATAM <- ggplot(COVID19_LATAM_WK,
 geom_point(size=1)+
   theme(legend.position="top")
 conf_LATAM + labs(x = "day", y= "Confirmed cases 03/22/2020", color = "Country")
+ggplotly(conf_LATAM)
+
+
+
+% Deaths %
+
 ```
 
 ```{r, echo=FALSE}
-ggplotly(conf_LATAM)
-```
-
-```{r}
-
-% Deaths %
 
  gather(COVID19_LATAM_WK,
                            value = "Deaths",
@@ -95,8 +98,6 @@ death_LATAM <-ggplot(COVID19_LATAM_WK,
 geom_point(size=1)+
   theme(legend.position="top")
 death_LATAM + labs(x = "day", y= "Deaths 03/22/2020", color = "Country")
-```
 
-```{r, echo=FALSE}
 ggplotly(death_LATAM)
 ```
