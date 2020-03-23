@@ -77,12 +77,12 @@ geom_point(size=1)+
   theme(legend.position="top")
 conf_LATAM + labs(x = "day", y= "Confirmed cases 03/22/2020", color = "Country")
 ggplotly(conf_LATAM)
-
+```
 
 
 % Deaths %
 
-```
+
 
 ```{r, echo=FALSE}
 
