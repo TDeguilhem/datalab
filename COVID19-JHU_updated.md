@@ -52,23 +52,6 @@ COVID19_FR = subset(COVID19, COVID19$Country.Region == "France")
 
 
 
-% EUROPE %
-
-  
-  COVID19_TEST <- gather(COVID19_EUROPE,
-                         value = "Confirmed",
-                         key = "Country.Region")
-ggplot(COVID19_EUROPE,
-       aes(x=Date_ok,
-           y=Confirmed,
-           color=Country.Region)) +
-  geom_line()
-
-
-
-
-
-
 install.packages("plotly")
 
 library(plotly)
@@ -90,11 +73,12 @@ conf_LATAM <- ggplot(COVID19_LATAM_WK,
 geom_point(size=1)+
   theme(legend.position="top")
 conf_LATAM + labs(x = "day", y= "Confirmed cases 03/22/2020", color = "Country")
-'''
+```
 
 ```{r, echo=FALSE}
 ggplotly(conf_LATAM)
-'''
+```
+
 ```{r}
 
 % Deaths %
@@ -111,8 +95,8 @@ death_LATAM <-ggplot(COVID19_LATAM_WK,
 geom_point(size=1)+
   theme(legend.position="top")
 death_LATAM + labs(x = "day", y= "Deaths 03/22/2020", color = "Country")
-'''
+```
 
 ```{r, echo=FALSE}
 ggplotly(death_LATAM)
-'''
+```
