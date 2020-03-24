@@ -22,7 +22,7 @@ library(hrbrthemes)
 require(ggplot2)  
 require(gridExtra) 
 
-COVID19=read.csv("https://48652267-876637319111280815.preview.editmysite.com/uploads/4/8/6/5/48652267/covid_19_clean_complete.csv",
+COVID19=read.csv("https://www.tdeguilhem.com/uploads/4/8/6/5/48652267/covid_19_clean_complete.csv",
                      header=TRUE,sep=",")
 
 print(COVID19[1:10,])
