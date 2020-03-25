@@ -119,7 +119,7 @@ COMPARE_LOGCon+ labs(x = "day", y= "Log Confirmed cases 03/24/2020", color = "Co
 
 ```
 
-### *Interactive plot*
+### *Interactive plots*
 
 ```{r}
 
@@ -191,7 +191,7 @@ COMPARE_D+ labs(x = "day", y= "Death rate 03/24/2020", color = "Country")
 
 ```
 
-### *Interactive plot*
+### *Interactive plots*
 
 ```{r}
 
