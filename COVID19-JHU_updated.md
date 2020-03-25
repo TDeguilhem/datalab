@@ -30,7 +30,7 @@ require(gridExtra)
 ```
 
 
-### Data cleaning and subsets (coutries)
+### Data cleaning and subsets (countries)
 
 ```{r}
 
