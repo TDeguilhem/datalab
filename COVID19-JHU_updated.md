@@ -1,4 +1,4 @@
-# Latin America Coronavirus project
+# Latin America Coronavirus updated data
 
 
 ## R Code
