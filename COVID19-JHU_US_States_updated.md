@@ -27,7 +27,7 @@ require(gridExtra)
 ```
 
 
-## Data cleaning and subsets (countries)
+## Data cleaning and subsets (States)
 
 ```{r}
 
