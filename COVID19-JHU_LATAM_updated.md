@@ -1,15 +1,12 @@
-# Latin America Coronavirus updated data
+# 2020 Latin America Coronavirus daily updated data: R script
 
 
-## R Code
-
-
-### Data updated each day
+## Daily updated data
 
 Avaible on [www.tdeguilhem.com](https://48652267-876637319111280815.preview.editmysite.com/uploads/4/8/6/5/48652267/covid_19_clean_complete.csv)
 
 
-### Needed packages
+## Needed packages
 
 ```{r}
 
@@ -30,7 +27,7 @@ require(gridExtra)
 ```
 
 
-### Data cleaning and subsets (countries)
+## Data cleaning and subsets (countries)
 
 ```{r}
 
@@ -71,6 +68,8 @@ COVID19_LATAM_WK = subset(COVID19_LATAM_E, COVID19_LATAM_E$Date_ok > "2020-03-09
 COVID19_COMPARE = subset(COVID19, COVID19$Country.Region == "Italy" | COVID19$Country.Region == "Spain" | COVID19$Country.Region == "Germany")
 COVID19_COMPARE = subset(COVID19_COMPARE, COVID19_COMPARE$Date_ok > "2020-03-04")
 ```
+
+## Visualizations
 
 ### *Confirmed cases in Latin America (COVID-19) and Eurpoe (Italy, Spain and Germany)*
 
