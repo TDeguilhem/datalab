@@ -53,7 +53,46 @@ COVID19$Rate_d[is.na(COVID19$Rate_d)] = 0
 
 COVID19$Rate_r[is.na(COVID19$Rate_r)] = 0
 
+
 COVID19$LOG_confirmed = log10(COVID19$Confirmed)
+COVID19$LOG_confirmed[is.na(COVID19$LOG_confirmed)] = 0
+COVID19$LOG_confirmed[is.infinite(COVID19$LOG_confirmed)] = 0
+
+
+
+COVID19$LOG_Death = log10(COVID19$Deaths)
+COVID19$LOG_Death[is.na(COVID19$LOG_Death)] = 0
+COVID19$LOG_Death[is.infinite(COVID19$LOG_Death)] = 0
+
+
+
+
+
+COVID19$confirmed_pop_SPAIN <- ifelse(COVID19$Country.Region == "Spain", (COVID19$Confirmed/46935000)*100000,  0 )
+
+COVID19$confirmed_pop_ITALY <- ifelse(COVID19$Country.Region == "Italy", (COVID19$Confirmed/60360000)*100000, 0)
+COVID19$confirmed_pop_GERMAN <- ifelse(COVID19$Country.Region == "Germany", (COVID19$Confirmed/83019000)*100000, 0)
+COVID19$confirmed_pop_US <- ifelse(COVID19$Country.Region == "US", (COVID19$Confirmed/327096265)*100000, 0)
+
+COVID19$confirmed_pop = COVID19$confirmed_pop_SPAIN + COVID19$confirmed_pop_ITALY + COVID19$confirmed_pop_GERMAN + COVID19$confirmed_pop_US 
+
+COVID19<-select(COVID19, -confirmed_pop_SPAIN, -confirmed_pop_ITALY, -confirmed_pop_GERMAN, -confirmed_pop_US)
+
+
+
+
+COVID19$death_pop_SPAIN <- ifelse(COVID19$Country.Region == "Spain", (COVID19$Deaths/46935000)*100000,  0 )
+
+COVID19$death_pop_ITALY <- ifelse(COVID19$Country.Region == "Italy", (COVID19$Deaths/60360000)*100000, 0)
+COVID19$death_pop_GERMAN <- ifelse(COVID19$Country.Region == "Germany", (COVID19$Deaths/83019000)*100000, 0)
+COVID19$death_pop_US <- ifelse(COVID19$Country.Region == "US", (COVID19$Deaths/327096265)*100000, 0)
+
+COVID19$death_pop = COVID19$death_pop_SPAIN + COVID19$death_pop_ITALY + COVID19$death_pop_GERMAN + COVID19$death_pop_US
+
+
+COVID19<-select(COVID19, -death_pop_SPAIN, -death_pop_ITALY, -death_pop_GERMAN, -death_pop_US)
+
+
 
 
 
@@ -65,13 +104,17 @@ COVID19_LATAM_WK = subset(COVID19_LATAM_E, COVID19_LATAM_E$Date_ok > "2020-03-09
 
 
 
-COVID19_COMPARE = subset(COVID19, COVID19$Country.Region == "Italy" | COVID19$Country.Region == "Spain" | COVID19$Country.Region == "Germany")
+COVID19_COMPARE = subset(COVID19, COVID19$Country.Region == "Italy" | COVID19$Country.Region == "Spain" | COVID19$Country.Region == "Germany" | COVID19$Country.Region == "US")
 COVID19_COMPARE = subset(COVID19_COMPARE, COVID19_COMPARE$Date_ok > "2020-03-04")
+
+
+
+
 ```
 
 ## Visualizations
 
-### *Confirmed cases in Latin America (COVID-19) and Eurpoe (Italy, Spain and Germany)*
+### *Confirmed cases in Latin America and confirmed cases (LOG and per 100,000 people) in Europe (Italy, Spain and Germany) and US*
 
 ```{r}
 
@@ -86,7 +129,7 @@ conf_LATAM <- ggplot(COVID19_LATAM_WK,
   geom_line()+
 geom_point(size=1)+
   theme(legend.position="top")
-conf_LATAM + labs(x = "day", y= "Confirmed cases 03/24/2020", color = "Country")
+conf_LATAM + labs(x = "Date", y= "Confirmed cases (daily updated)", color = "Country")
 
 
 
@@ -100,7 +143,7 @@ COMPARE_Con <-ggplot(COVID19_COMPARE,
   geom_line()+
   geom_point(size=1)+
   theme(legend.position="top")
-COMPARE_Con+ labs(x = "day", y= "Confirmed cases 03/24/2020", color = "Country")
+COMPARE_Con+ labs(x = "Date", y= "Confirmed cases (daily updated)", color = "Country")
 
 
 
@@ -114,7 +157,22 @@ COMPARE_LOGCon <-ggplot(COVID19_COMPARE,
   geom_line()+
   geom_point(size=1)+
   theme(legend.position="top")
-COMPARE_LOGCon+ labs(x = "day", y= "Log Confirmed cases 03/24/2020", color = "Country")
+COMPARE_LOGCon+ labs(x = "Date", y= "Log Confirmed cases 03/24/2020", color = "Country")
+
+
+
+
+gather(COVID19_COMPARE,
+       value = "confirmed_pop",
+       key = "Country.Region")
+CONF_POP <- ggplot(COVID19_COMPARE,
+                   aes(x=Date_ok,
+                       y=confirmed_pop,
+                       color=Country.Region)) +
+  geom_line()+
+  geom_point(size=1)+
+  theme(legend.position="top")
+CONF_POP + labs(x = "Date", y= "Cases per 100,000 people (daily updated)", color = "Country")
 
 ```
 
@@ -128,9 +186,11 @@ ggplotly(COMPARE_Con)
 
 ggplotly(COMPARE_LOGCon)
 
+ggplotly(CONF_POP)
+
 ```
 
-### *Deaths and death rate in Latin America (COVID-19) and Europe (Italy, Spain and Germany)*
+### *Deaths and death rate in Latin America, and Deaths (LOG and per 100,000 people) and death rate in Europe (Italy, Spain and Germany) and US*
 
 ```{r}
  
@@ -144,7 +204,7 @@ death_LATAM <-ggplot(COVID19_LATAM_WK,
   geom_line()+
 geom_point(size=1)+
   theme(legend.position="top")
-death_LATAM + labs(x = "day", y= "Deaths 03/24/2020", color = "Country")
+death_LATAM + labs(x = "day", y= "Deaths (daily updated)", color = "Country")
 
 
 
@@ -158,7 +218,7 @@ LATAM_DR <-ggplot(COVID19_LATAM_WK,
   geom_line()+
   geom_point(size=1)+
   theme(legend.position="top")
-LATAM_DR+ labs(x = "day", y= "Death rate 03/24/2020", color = "Country")
+LATAM_DR+ labs(x = "day", y= "Death rate (daily updated)", color = "Country")
 
 
 
@@ -172,7 +232,7 @@ COMPARE_Dea <-ggplot(COVID19_COMPARE,
   geom_line()+
   geom_point(size=1)+
   theme(legend.position="top")
-COMPARE_Dea+ labs(x = "day", y= "Deaths 03/24/2020", color = "Country")
+COMPARE_Dea+ labs(x = "day", y= "Deaths (daily updated)", color = "Country")
 
 
 
@@ -186,7 +246,21 @@ COMPARE_D <-ggplot(COVID19_COMPARE,
   geom_line()+
   geom_point(size=1)+
   theme(legend.position="top")
-COMPARE_D+ labs(x = "day", y= "Death rate 03/24/2020", color = "Country")
+COMPARE_D+ labs(x = "day", y= "Death rate (daily updated)", color = "Country")
+
+
+gather(COVID19_COMPARE,
+       value = "death_pop",
+       key = "Country.Region")
+CONF_POP <- ggplot(COVID19_COMPARE,
+                   aes(x=Date_ok,
+                       y=death_pop,
+                       color=Country.Region)) +
+  geom_line()+
+  geom_point(size=1)+
+  theme(legend.position="top")
+CONF_POP + labs(x = "Date", y= "Deaths per 100,000 people (daily updated)", color = "Country")
+
 
 ```
 
@@ -201,5 +275,7 @@ ggplotly(LATAM_DR)
 ggplotly(COMPARE_Dea)
 
 ggplotly(COMPARE_D)
+
+ggplotly(CONF_POP)
 
 ```
