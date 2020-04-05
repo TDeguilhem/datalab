@@ -190,7 +190,7 @@ ggplotly(CONF_POP)
 
 ```
 
-### *Deaths and death rate in Latin America, and Deaths (LOG and per 100,000 people) and death rate in Europe (Italy, Spain and Germany) and US*
+### *Deaths and death rate in Latin America, deaths (LOG and per 100,000 people) and death rate in Europe (Italy, Spain and Germany) and US*
 
 ```{r}
  
