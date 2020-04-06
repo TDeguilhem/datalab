@@ -6,6 +6,10 @@
 Avaible on [www.tdeguilhem.com](https://48652267-876637319111280815.preview.editmysite.com/uploads/4/8/6/5/48652267/covid_19_clean_complete.csv)
 
 
+## Local language change
+
+Sys.setlocale(category = "LC_ALL", locale = "english")
+
 ## Needed packages
 
 ```{r}
