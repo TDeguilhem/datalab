@@ -5,6 +5,9 @@
 
 Avaible on [www.tdeguilhem.com](https://www.tdeguilhem.com/uploads/4/8/6/5/48652267/us_states_covid19_daily.csv)
 
+## Local language change 
+
+Sys.setlocale(category = "LC_ALL", locale = "english")
 
 ## Needed packages
 
