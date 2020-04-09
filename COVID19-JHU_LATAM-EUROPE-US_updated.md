@@ -59,18 +59,9 @@ COVID19$Rate_d[is.na(COVID19$Rate_d)] = 0
 
 COVID19$Rate_r[is.na(COVID19$Rate_r)] = 0
 
-
 COVID19$LOG_confirmed = log10(COVID19$Confirmed)
 COVID19$LOG_confirmed[is.na(COVID19$LOG_confirmed)] = 0
 COVID19$LOG_confirmed[is.infinite(COVID19$LOG_confirmed)] = 0
-
-
-
-COVID19$LOG_Death = log10(COVID19$Deaths)
-COVID19$LOG_Death[is.na(COVID19$LOG_Death)] = 0
-COVID19$LOG_Death[is.infinite(COVID19$LOG_Death)] = 0
-
-
 
 
 
@@ -79,10 +70,21 @@ COVID19$confirmed_pop_SPAIN <- ifelse(COVID19$Country.Region == "Spain", (COVID1
 COVID19$confirmed_pop_ITALY <- ifelse(COVID19$Country.Region == "Italy", (COVID19$Confirmed/60360000)*100000, 0)
 COVID19$confirmed_pop_GERMAN <- ifelse(COVID19$Country.Region == "Germany", (COVID19$Confirmed/83019000)*100000, 0)
 COVID19$confirmed_pop_US <- ifelse(COVID19$Country.Region == "US", (COVID19$Confirmed/327096265)*100000, 0)
+COVID19$confirmed_pop_ARG <- ifelse(COVID19$Country.Region == "Argentina", (COVID19$Confirmed/43132000)*100000,  0 )
+COVID19$confirmed_pop_CHI <- ifelse(COVID19$Country.Region == "Chile", (COVID19$Confirmed/18006000)*100000, 0)
+COVID19$confirmed_pop_ECU <- ifelse(COVID19$Country.Region == "Ecuador", (COVID19$Confirmed/16279000)*100000, 0)
+COVID19$confirmed_pop_PERU <- ifelse(COVID19$Country.Region == "Peru", (COVID19$Confirmed/32721300)*100000, 0)
+COVID19$confirmed_pop_BRA <- ifelse(COVID19$Country.Region == "Brazil", (COVID19$Confirmed/204519000)*100000, 0)
+COVID19$confirmed_pop_COL <- ifelse(COVID19$Country.Region == "Colombia", (COVID19$Confirmed/48218000)*100000, 0)
+COVID19$confirmed_pop_MEX <- ifelse(COVID19$Country.Region == "Mexico", (COVID19$Confirmed/127500000)*100000, 0)
 
-COVID19$confirmed_pop = COVID19$confirmed_pop_SPAIN + COVID19$confirmed_pop_ITALY + COVID19$confirmed_pop_GERMAN + COVID19$confirmed_pop_US 
 
-COVID19<-select(COVID19, -confirmed_pop_SPAIN, -confirmed_pop_ITALY, -confirmed_pop_GERMAN, -confirmed_pop_US)
+COVID19$confirmed_pop = COVID19$confirmed_pop_SPAIN + COVID19$confirmed_pop_ITALY + COVID19$confirmed_pop_GERMAN + COVID19$confirmed_pop_US + COVID19$confirmed_pop_ARG + COVID19$confirmed_pop_CHI + COVID19$confirmed_pop_ECU + COVID19$confirmed_pop_PERU + COVID19$confirmed_pop_BRA + COVID19$confirmed_pop_COL + COVID19$confirmed_pop_MEX
+
+COVID19<-select(COVID19, -confirmed_pop_SPAIN, -confirmed_pop_ITALY, -confirmed_pop_GERMAN, -confirmed_pop_US, -COVID19$confirmed_pop_ARG, -COVID19$confirmed_pop_CHI, -COVID19$confirmed_pop_ECU, -COVID19$confirmed_pop_PERU, -COVID19$confirmed_pop_BRA, -COVID19$confirmed_pop_COL, -COVID19$confirmed_pop_MEX)
+
+
+
 
 
 
@@ -92,11 +94,25 @@ COVID19$death_pop_SPAIN <- ifelse(COVID19$Country.Region == "Spain", (COVID19$De
 COVID19$death_pop_ITALY <- ifelse(COVID19$Country.Region == "Italy", (COVID19$Deaths/60360000)*100000, 0)
 COVID19$death_pop_GERMAN <- ifelse(COVID19$Country.Region == "Germany", (COVID19$Deaths/83019000)*100000, 0)
 COVID19$death_pop_US <- ifelse(COVID19$Country.Region == "US", (COVID19$Deaths/327096265)*100000, 0)
+COVID19$death_pop_ARG <- ifelse(COVID19$Country.Region == "Argentina", (COVID19$Deaths/43132000)*100000,  0 )
+COVID19$death_pop_CHI <- ifelse(COVID19$Country.Region == "Chile", (COVID19$Deaths/18006000)*100000, 0)
+COVID19$death_pop_ECU <- ifelse(COVID19$Country.Region == "Ecuador", (COVID19$Deaths/16279000)*100000, 0)
+COVID19$death_pop_PERU <- ifelse(COVID19$Country.Region == "Peru", (COVID19$Deaths/32721300)*100000, 0)
+COVID19$death_pop_BRA <- ifelse(COVID19$Country.Region == "Brazil", (COVID19$Deaths/204519000)*100000, 0)
+COVID19$death_pop_COL <- ifelse(COVID19$Country.Region == "Colombia", (COVID19$Deaths/48218000)*100000, 0)
+COVID19$death_pop_MEX <- ifelse(COVID19$Country.Region == "Mexico", (COVID19$Deaths/127500000)*100000, 0)
 
-COVID19$death_pop = COVID19$death_pop_SPAIN + COVID19$death_pop_ITALY + COVID19$death_pop_GERMAN + COVID19$death_pop_US
+
+COVID19$death_pop = COVID19$death_pop_SPAIN + COVID19$death_pop_ITALY + COVID19$death_pop_GERMAN + COVID19$death_pop_US + COVID19$death_pop_ARG + COVID19$death_pop_CHI + COVID19$death_pop_ECU + COVID19$death_pop_PERU + COVID19$death_pop_BRA + COVID19$death_pop_COL + COVID19$death_pop_MEX
 
 
-COVID19<-select(COVID19, -death_pop_SPAIN, -death_pop_ITALY, -death_pop_GERMAN, -death_pop_US)
+COVID19<-select(COVID19, -death_pop_SPAIN, -death_pop_ITALY, -death_pop_GERMAN, -death_pop_US, -COVID19$death_pop_ARG, -COVID19$death_pop_CHI, -COVID19$death_pop_ECU, -COVID19$death_pop_PERU, -COVID19$death_pop_BRA, -COVID19$death_pop_COL, -COVID19$death_pop_MEX)
+
+
+
+COVID19$LOG_Death = log10(COVID19$Deaths)
+COVID19$LOG_Death[is.na(COVID19$LOG_Death)] = 0
+COVID19$LOG_Death[is.infinite(COVID19$LOG_Death)] = 0
 
 
 
@@ -112,6 +128,7 @@ COVID19_LATAM_WK = subset(COVID19_LATAM_E, COVID19_LATAM_E$Date_ok > "2020-03-09
 
 COVID19_COMPARE = subset(COVID19, COVID19$Country.Region == "Italy" | COVID19$Country.Region == "Spain" | COVID19$Country.Region == "Germany" | COVID19$Country.Region == "US")
 COVID19_COMPARE = subset(COVID19_COMPARE, COVID19_COMPARE$Date_ok > "2020-03-04")
+
 
 
 
@@ -165,6 +182,23 @@ COMPARE_LOGCon <-ggplot(COVID19_COMPARE,
   theme(legend.position="top")
 COMPARE_LOGCon+ labs(x = "Date", y= "Log Confirmed cases 03/24/2020", color = "Country")
 
+
+
+
+
+
+
+gather(COVID19_LATAM_WK,
+       value = "confirmed_pop",
+       key = "Country.Region")
+CONF_POPLA <- ggplot(COVID19_LATAM_WK,
+                   aes(x=Date_ok,
+                       y=confirmed_pop,
+                       color=Country.Region)) +
+  geom_line()+
+  geom_point(size=1)+
+  theme(legend.position="top")
+CONF_POPLA + labs(x = "Date", y= "Cases per 100,000 people (daily updated)", color = "Country")
 
 
 
@@ -253,6 +287,21 @@ COMPARE_D <-ggplot(COVID19_COMPARE,
   geom_point(size=1)+
   theme(legend.position="top")
 COMPARE_D+ labs(x = "day", y= "Death rate (daily updated)", color = "Country")
+
+
+
+
+gather(COVID19_LATAM_WK,
+       value = "death_pop",
+       key = "Country.Region")
+DEATH_POPLA <- ggplot(COVID19_LATAM_WK,
+                   aes(x=Date_ok,
+                       y=death_pop,
+                       color=Country.Region)) +
+  geom_line()+
+  geom_point(size=1)+
+  theme(legend.position="top")
+DEATH_POPLA + labs(x = "Date", y= "Deaths per 100,000 people (daily updated)", color = "Country")
 
 
 gather(COVID19_COMPARE,
