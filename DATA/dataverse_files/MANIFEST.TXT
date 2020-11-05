@@ -1,0 +1,2 @@
+Questionnaire_Citizens_under_coronavirus_V1_V2_opendata_VF.pdf (application/pdf) 409239 bytes.
+Citizens_under_Coronavirus_France_V1_V2_opendata.dta (application/x-stata-14) 18630462 bytes.
